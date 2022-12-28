@@ -30,17 +30,15 @@ export function TodoAppStack({ stack }: StackContext) {
    * 
    * Looking at the API implementation in src/api/lambda.ts, we can see that we 
    * need to include both user_id and id fields in the table schema.
+   * 
+
    */
-  const table = new sst.Table(stack, "Table", {
-    fields: {
-      "user_id": "string",
-      "id": "string"
-    },
-    primaryIndex: {
-      partitionKey: "user_id",
-      sortKey: "id"
-    }
-  })
+
+  /* const table = new sst.Table(stack, "Table", {        
+    // * TODO: 
+    // *   - Create a table with user_id and id fields and 'string' type
+    // *   - Use the user_id as the partition key, and use the id as the sort key 
+  })*/
 
   /**
    * Create a HTTP API. For this, we can use `sst.Api`. We need
@@ -63,6 +61,8 @@ export function TodoAppStack({ stack }: StackContext) {
    * we can see that we need to supply a TABLE name in an environment
    * variable so that the function can find the DynamoDB table.
    **/
+
+  /* 
   const api = new sst.Api(stack, "Api", {   
     accessLog: true,    
     routes: {
@@ -72,29 +72,16 @@ export function TodoAppStack({ stack }: StackContext) {
           permissions: [table, "grantRead"]
         }
       },
-      "POST /api/v1/todos": {
-        function: {
-          handler: "src/api/lambda.handlePost",
-          permissions: [table, "grantPut"]
-        }
-      },
-      "PUT /api/v1/todos/{todoId}": {
-        function: {
-          handler: "src/api/lambda.handlePut",
-          permissions: [table, "grantPut"]
-        }
-      },
-      "DELETE /api/v1/todos/{todoId}": {
-        function: {
-          handler: "src/api/lambda.handleDelete",
-          permissions: [table, "grantDelete"]
-        }
-      },
+
+      // TODO - add API actions for POST, PUT and DELETE, 
+      // with the appropriate permissions to the table
     },
     defaults: {
       function: {
         environment: {
-          TABLE: table.tableName
+          // TODO - set an environment variable containing the name
+          // of the table the function should connect to. You should
+          // look at the function code to see what the variable should be.
         }
       }
     },
@@ -105,6 +92,7 @@ export function TodoAppStack({ stack }: StackContext) {
 
     }
   })
+  */
 
   /**
    * Next we create our frontend. We are using a React app, so we use 
@@ -116,13 +104,15 @@ export function TodoAppStack({ stack }: StackContext) {
    * a REACT_APP_API_URL, as found in the static website in src/frontend,
    * which points to the API's deployed URL. 
    */
-  const frontend = new sst.ReactStaticSite(stack, "Frontend", {
-    path: "src/frontend",
+
+  /*
+  const frontend = new sst.ReactStaticSite(stack, "Frontend", {    
+    path: "TODO - set the path for the frontend. This is relative to the current directory",
 
     // When we replace the staticish site with a CRA we can
     // use compile-time env substition instead
     environment: {
-      "REACT_APP_API_URL": api.url
+      "REACT_APP_API_URL": "TODO - set this to the URL for the API"
     },  
 
     cdk: {
@@ -134,6 +124,7 @@ export function TodoAppStack({ stack }: StackContext) {
       }      
     },      
   })
+  */
   
   
 
@@ -191,9 +182,9 @@ export function TodoAppStack({ stack }: StackContext) {
    * frontend endpoints easily when working with the stack. These
    * will be printed to the console. 
    */
+
   stack.addOutputs({
-    "ApiEndpoint": api.url,
-    "frontendEndpoint": frontend.distributionDomain
+      // TODO - output the API URL, and the frontend URL
   });
 
 
