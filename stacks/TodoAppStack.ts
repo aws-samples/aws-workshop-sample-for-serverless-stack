@@ -127,10 +127,12 @@ export function TodoAppStack({ stack }: StackContext) {
 
     cdk: {
       bucket: {
-        blockPublicAccess: BlockPublicAccess.BLOCK_ALL
+        blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+        autoDeleteObjects: true,
       },
       distribution: {
         minimumProtocolVersion: SecurityPolicyProtocol.SSL_V3,
+        enableLogging: true,
       }      
     },      
   })
