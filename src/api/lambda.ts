@@ -107,8 +107,7 @@ const deleteTodo = async function(userId: string, todoId: string): Promise<boole
       "id": todoId
     }
   }).promise()
-
-  return true
+  return result.$response.error == undefined;
 }
 
 // Updates a TODO
