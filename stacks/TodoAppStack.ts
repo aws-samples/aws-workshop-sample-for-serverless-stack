@@ -69,25 +69,25 @@ export function TodoAppStack({ stack }: StackContext) {
       "GET /api/v1/todos": {
         function: {
           handler: "src/api/lambda.handleGet",
-          permissions: [table, "grantRead"]
+          permissions: [[table.cdk.table, "grantReadData"]]
         }
       },
       "POST /api/v1/todos": {
         function: {
           handler: "src/api/lambda.handlePost",
-          permissions: [table, "grantPut"]
+          permissions: [[table.cdk.table, "grantReadWriteData"]]
         }
       },
       "PUT /api/v1/todos/{todoId}": {
         function: {
           handler: "src/api/lambda.handlePut",
-          permissions: [table, "grantPut"]
+          permissions: [[table.cdk.table, "grantReadWriteData"]]
         }
       },
       "DELETE /api/v1/todos/{todoId}": {
         function: {
           handler: "src/api/lambda.handleDelete",
-          permissions: [table, "grantDelete"]
+          permissions: [[table.cdk.table, "grantReadWriteData"]]
         }
       },
     },
@@ -101,7 +101,7 @@ export function TodoAppStack({ stack }: StackContext) {
     cors: {
       allowMethods: ["ANY"],
       allowOrigins: ["*"],
-      allowHeaders: ["*"]
+      allowHeaders: ["*"] 
 
     }
   })
