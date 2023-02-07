@@ -22,13 +22,21 @@ const ddbClient = new DynamoDB.DocumentClient()
 const defaultUser = 'no-one'
 const apiBase = '/api/v1/todos'
 
-// Shape of a TODO on the API
-interface Todo {
+const AWS = require('aws-sdk')
+
+// A new TODO submitted by the client
+interface NewTodo {
+  completed: boolean,
+  title: string
+}
+
+// Shape of a TODO on the API. This is 
+// essentially the original TODO, plus
+// the fields that the server side must set.
+interface Todo extends NewTodo {
   id: string,
   user_id: string
-  done: boolean,
-  todo: string,
-  created: Date
+  created: number
 }
 
 // Return a successful JSON response
@@ -71,12 +79,14 @@ const getAllTodos = async function(userId: string): Promise<Todo[]> {
 }
 
 // Creates a new TODO. Returns the complete TODO, with a UUID added. 
-const createTodo = async function(userId: string, todo: Todo): Promise<Todo> {
+const createTodo = async function(userId: string, todo: Todo): Promise<NewTodo> {
 
   // Create a copy of the TODO with an UUID
-  const newTodo = {
+  const newTodo: Todo = {
     ...todo,
-    user_id: userId
+    user_id: userId,
+    created: new Date().getTime(),
+    id: AWS.util.uuid.v4(),
   }
 
   // Insert the item into the table

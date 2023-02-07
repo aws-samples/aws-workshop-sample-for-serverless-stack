@@ -13,10 +13,14 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-export interface Todo {
+// A new TODO submitted by the client
+export interface NewTodo {
+    completed: boolean,
+    title: string
+}
+
+export interface Todo extends NewTodo {
     user_id: string,
     id: string,
-    title: string,
-    completed: boolean,
     created: number
 }

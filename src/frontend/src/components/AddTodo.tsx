@@ -15,10 +15,8 @@
 
 import { useState } from 'react'
 import { Card, CardContent, TextField} from '@mui/material'
-import { Todo } from '../utils/Todo'
+import { NewTodo, Todo } from '../utils/Todo'
 import { useAddTodo } from '../hooks/useAddTodo'
-
-import { v4 as uuidv4 } from 'uuid';
 
   
 export function AddTodo() {
@@ -31,12 +29,9 @@ export function AddTodo() {
         if (event.code !== "Enter")
             return
         
-        const todo: Todo = {
-            user_id: '',
-            id: uuidv4(),
+        const todo: NewTodo = {
             title: newTodo,
-            completed: false,
-            created: new Date().getTime()
+            completed: false
         }
 
         addTodo(todo)

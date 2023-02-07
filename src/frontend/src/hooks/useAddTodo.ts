@@ -16,11 +16,11 @@
 import axios from 'axios'
 import {useMutation, useQueryClient } from 'react-query'
 import { BASE_PATH, HEADERS } from '../utils/constants'
-import { Todo } from '../utils/Todo'
+import { NewTodo, Todo } from '../utils/Todo'
 
 
 
-async function addTodo(todo: Todo) {
+async function addTodo(todo: NewTodo) {
     const { data } = await axios.post(
         BASE_PATH + "todos",
         todo, 

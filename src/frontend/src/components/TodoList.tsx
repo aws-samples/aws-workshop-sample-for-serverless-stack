@@ -81,7 +81,7 @@ export function TodoList () {
       }}>
         {data?.map((todo: Todo) => {
         return  (
-          <Box key={todo.id}>
+          <Box key={todo.id ?? "new-todo" }>
             <ListItem
               secondaryAction={
                 <IconButton edge="end" aria-label="comments" onClick={() => handleDelate(todo)}>
