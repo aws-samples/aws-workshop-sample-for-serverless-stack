@@ -16,7 +16,7 @@
     "@types/react-dom": "^18.0.3",
     "@types/uuid": "^8.3.4",
     "add": "^2.0.6",
-    "axios": "^0.27.2",
+    "axios": "^0.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.1.0",
     "react-query": "^4.0.0-beta.23",
